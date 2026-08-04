@@ -1,0 +1,5 @@
+# Todo el sitio es público y se puede indexar.
+User-agent: *
+Allow: /
+
+Sitemap: https://arcadeshopmerida-hub.github.io/ashopmid/sitemap.xml

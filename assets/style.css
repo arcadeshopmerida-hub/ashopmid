@@ -1,0 +1,1073 @@
+/* ==========================================================================
+   Arcade Shop Mérida — hoja de estilos compartida por todas las páginas
+   Tema claro. Cualquier cambio aquí se refleja en las 8 páginas a la vez.
+
+   ÍNDICE
+   1. Variables de color y tipografía
+   2. Base
+   3. Barra de navegación (menú desplegable)
+   4. Hero
+   5. Secciones y encabezados
+   6. Ficha del equipo (specs y features)
+   7. Carrusel de fotos
+   8. Proceso
+   9. Paquetes y precios
+   10. Bloque de diseño y listas
+   11. Tarjetas de información
+   12. Preguntas frecuentes
+   13. Llamado final, pie de página y botón de WhatsApp
+   14. Página 404
+   15. Responsivo
+   ========================================================================== */
+
+/* ==========================================================================
+   1. VARIABLES
+   ========================================================================== */
+
+:root{
+  /* Fondos */
+  --bg:        #ffffff;
+  --bg-soft:   #f7f5fa;   /* secciones alternas */
+  --bg-panel:  #ffffff;   /* tarjetas */
+  --bg-sunken: #f1eef6;   /* fondos hundidos, carrusel */
+
+  /* Bordes */
+  --line:       #e4dfec;
+  --line-strong:#cfc7dc;
+
+  /* Texto — todos superan el mínimo de contraste 4.5:1 sobre fondo claro */
+  --ink:       #1c1626;
+  --ink-dim:   #554d66;
+  --ink-faint: #6f6683;
+
+  /* Acento — cada página lo redefine con su propio color */
+  --accent:      #d81b60;
+  --accent-soft: #fce7f0;
+  --accent-ink:  #ffffff;   /* texto sobre el acento */
+
+  /* WhatsApp — verde oscurecido para que el texto blanco encima se lea bien */
+  --wa:       #0f7a35;
+  --wa-float: #1da851;   /* el botón flotante lleva icono, no texto */
+
+  --radius:    10px;
+  --radius-sm: 6px;
+  --shadow:    0 1px 2px rgba(28,22,38,0.05), 0 4px 16px rgba(28,22,38,0.05);
+  --shadow-lg: 0 2px 6px rgba(28,22,38,0.06), 0 12px 34px rgba(28,22,38,0.10);
+
+  --nav-h: 64px;
+}
+
+/* ==========================================================================
+   2. BASE
+   ========================================================================== */
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top: calc(var(--nav-h) + 16px);  /* que el ancla no quede bajo la barra */
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+h1, h2, h3, h4{
+  font-family:'Rajdhani', 'Inter', sans-serif;
+  font-weight:700;
+  line-height:1.15;
+  letter-spacing:-0.01em;
+}
+
+a{ color:inherit; }
+img{ max-width:100%; display:block; }
+strong{ font-weight:650; color:var(--ink); }
+
+:focus-visible{
+  outline:3px solid var(--accent);
+  outline-offset:2px;
+  border-radius:var(--radius-sm);
+}
+
+.wrap{
+  width:100%;
+  max-width:1140px;
+  margin:0 auto;
+  padding:0 24px;
+}
+
+/* Enlace para saltar al contenido (lectores de pantalla y teclado) */
+.skip-link{
+  position:absolute; left:-9999px; top:0; z-index:200;
+  background:var(--accent); color:var(--accent-ink);
+  padding:12px 20px; border-radius:0 0 var(--radius) 0;
+  font-weight:600; text-decoration:none;
+}
+.skip-link:focus{ left:0; }
+
+.mono{
+  font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* ==========================================================================
+   3. BARRA DE NAVEGACIÓN — menú desplegable
+   ========================================================================== */
+
+.site-header{
+  position:sticky; top:0; z-index:100;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+
+.nav-bar{
+  display:flex; align-items:center; gap:16px;
+  height:var(--nav-h);
+}
+
+/* --- Marca --- */
+.brand{
+  display:flex; align-items:center; gap:9px;
+  font-family:'Rajdhani', sans-serif; font-weight:700;
+  font-size:19px; letter-spacing:0.01em; text-transform:uppercase;
+  text-decoration:none; color:var(--ink);
+  margin-right:auto; white-space:nowrap;
+}
+.brand .dot{
+  width:10px; height:10px; border-radius:50%;
+  background:var(--accent); flex-shrink:0;
+  box-shadow:0 0 0 4px var(--accent-soft);
+}
+.brand .light{ color:var(--ink-faint); font-weight:600; }
+
+/* --- Menú de escritorio --- */
+.nav-menu{
+  display:flex; align-items:center; gap:2px;
+  list-style:none;
+}
+.nav-menu > li{ position:relative; }
+
+.nav-link{
+  display:flex; align-items:center; gap:6px;
+  font-size:14.5px; font-weight:550;
+  color:var(--ink-dim); text-decoration:none;
+  padding:9px 14px; border-radius:var(--radius-sm);
+  background:none; border:none; cursor:pointer;
+  font-family:inherit; white-space:nowrap;
+  transition:background 0.15s ease, color 0.15s ease;
+}
+.nav-link:hover{ background:var(--bg-soft); color:var(--ink); }
+.nav-link[aria-current="page"]{ color:var(--accent); font-weight:650; }
+
+.nav-link .caret{
+  font-size:10px; line-height:1;
+  transition:transform 0.2s ease;
+  color:var(--ink-faint);
+}
+.nav-link[aria-expanded="true"] .caret{ transform:rotate(180deg); }
+.nav-link[aria-expanded="true"]{ background:var(--bg-soft); color:var(--ink); }
+
+/* --- Panel desplegable de "Equipos" (escritorio) --- */
+.dropdown{
+  position:absolute; top:calc(100% + 8px); left:0;
+  min-width:330px;
+  background:var(--bg-panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-lg);
+  padding:8px;
+  list-style:none;
+  opacity:0; visibility:hidden; transform:translateY(-6px);
+  transition:opacity 0.16s ease, transform 0.16s ease, visibility 0.16s;
+}
+.dropdown.open{ opacity:1; visibility:visible; transform:translateY(0); }
+
+.dropdown a{
+  display:flex; align-items:flex-start; gap:12px;
+  padding:11px 12px; border-radius:var(--radius-sm);
+  text-decoration:none; color:var(--ink);
+  transition:background 0.13s ease;
+}
+.dropdown a:hover{ background:var(--bg-soft); }
+.dropdown a[aria-current="page"]{ background:var(--accent-soft); }
+.dropdown .ic{ font-size:19px; line-height:1.3; flex-shrink:0; }
+.dropdown .tx b{ display:block; font-size:14.5px; font-weight:600; line-height:1.35; }
+.dropdown .tx span{ display:block; font-size:12.5px; color:var(--ink-faint); line-height:1.45; margin-top:2px; }
+
+/* --- Botón de WhatsApp en la barra --- */
+.nav-cta{
+  display:inline-flex; align-items:center; gap:7px;
+  background:var(--wa); color:#fff;
+  font-size:14px; font-weight:600;
+  padding:10px 17px; border-radius:100px;
+  text-decoration:none; white-space:nowrap;
+  transition:filter 0.15s ease, transform 0.15s ease;
+}
+.nav-cta:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+
+/* --- Botón hamburguesa (solo móvil) --- */
+.nav-toggle{
+  display:none;
+  width:44px; height:44px; flex-shrink:0;
+  align-items:center; justify-content:center;
+  background:none; border:1px solid var(--line);
+  border-radius:var(--radius-sm); cursor:pointer;
+  padding:0;
+}
+.nav-toggle .bars{
+  display:block; position:relative;
+  width:20px; height:2px; border-radius:2px;
+  background:var(--ink);
+  transition:background 0.15s ease;
+}
+.nav-toggle .bars::before,
+.nav-toggle .bars::after{
+  content:''; position:absolute; left:0;
+  width:20px; height:2px; border-radius:2px; background:var(--ink);
+  transition:transform 0.22s ease, top 0.22s ease;
+}
+.nav-toggle .bars::before{ top:-6px; }
+.nav-toggle .bars::after{  top:6px; }
+.nav-toggle[aria-expanded="true"] .bars{ background:transparent; }
+.nav-toggle[aria-expanded="true"] .bars::before{ top:0; transform:rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .bars::after{  top:0; transform:rotate(-45deg); }
+
+/* --- Capa oscura detrás del menú móvil --- */
+.nav-scrim{
+  position:fixed; inset:var(--nav-h) 0 0; z-index:90;
+  background:rgba(28,22,38,0.35);
+  opacity:0; visibility:hidden;
+  transition:opacity 0.2s ease, visibility 0.2s;
+}
+.nav-scrim.open{ opacity:1; visibility:visible; }
+
+/* ==========================================================================
+   4. HERO
+   ========================================================================== */
+
+.hero{
+  padding:clamp(44px, 7vw, 78px) 0 clamp(38px, 6vw, 62px);
+  background:
+    radial-gradient(ellipse 70% 100% at 12% 0%, var(--accent-soft), transparent 62%),
+    var(--bg);
+}
+
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+  color:var(--accent);
+  background:var(--accent-soft);
+  padding:6px 13px; border-radius:100px;
+  margin-bottom:20px;
+}
+
+.hero h1{
+  font-size:clamp(32px, 6.2vw, 58px);
+  max-width:16ch;
+  letter-spacing:-0.02em;
+}
+.hero h1 .accent{ color:var(--accent); }
+
+.hero .sub{
+  margin-top:18px; max-width:60ch;
+  color:var(--ink-dim); font-size:clamp(15.5px, 1.6vw, 18px);
+}
+
+.hero-ctas{ margin-top:30px; display:flex; gap:12px; flex-wrap:wrap; }
+
+.hero-badges{
+  margin-top:34px;
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+  gap:12px;
+}
+.hero-badge{
+  display:flex; align-items:center; gap:10px;
+  background:var(--bg-panel); border:1px solid var(--line);
+  border-radius:var(--radius); padding:13px 16px;
+}
+.hero-badge .ic{
+  width:22px; height:22px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--accent); color:var(--accent-ink);
+  border-radius:50%; font-size:12px; font-weight:700;
+}
+.hero-badge .label{ font-size:14px; font-weight:550; line-height:1.4; }
+
+/* --- Botones --- */
+.btn-primary, .btn-ghost{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  font-size:15px; font-weight:600;
+  padding:14px 26px; border-radius:100px;
+  text-decoration:none; cursor:pointer; border:1.5px solid transparent;
+  transition:transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  text-align:center;
+}
+.btn-primary{
+  background:var(--accent); color:var(--accent-ink);
+  box-shadow:0 2px 14px rgba(28,22,38,0.12);
+}
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 8px 24px rgba(28,22,38,0.18); }
+.btn-ghost{
+  background:var(--bg-panel); color:var(--ink); border-color:var(--line-strong);
+}
+.btn-ghost:hover{ background:var(--bg-soft); transform:translateY(-2px); }
+.btn-wa{ background:var(--wa); color:#fff; border-color:transparent; }
+.btn-wa:hover{ filter:brightness(1.08); }
+
+/* ==========================================================================
+   5. SECCIONES
+   ========================================================================== */
+
+.section{ padding:clamp(48px, 7vw, 78px) 0; }
+.section.alt{ background:var(--bg-soft); border-block:1px solid var(--line); }
+
+.section-head{ margin-bottom:clamp(28px, 4vw, 42px); max-width:64ch; }
+.section-tag{
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--accent); margin-bottom:10px;
+}
+.section-head h2{ font-size:clamp(25px, 3.6vw, 38px); letter-spacing:-0.015em; }
+.section-head p{ color:var(--ink-dim); margin-top:12px; font-size:16px; }
+
+/* Separador decorativo entre secciones */
+.divider{
+  display:flex; align-items:center; justify-content:center; gap:14px;
+  padding:8px 0; font-size:15px; color:var(--line-strong);
+  user-select:none;
+}
+.divider .em{ display:inline-block; animation:float 3.6s ease-in-out infinite; }
+.divider .em:nth-child(2){ animation-delay:0.9s; }
+.divider .em:nth-child(3){ animation-delay:1.8s; }
+@keyframes float{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-4px);} }
+
+/* ==========================================================================
+   6. FICHA DEL EQUIPO
+   ========================================================================== */
+
+.specs-grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));
+  gap:14px;
+}
+.spec-item{
+  background:var(--bg-panel); border:1px solid var(--line);
+  border-radius:var(--radius); padding:22px 20px;
+}
+.spec-item .ic{ font-size:24px; display:block; margin-bottom:12px; line-height:1; }
+.spec-item .val{ font-family:'Rajdhani', sans-serif; font-size:20px; font-weight:700; line-height:1.2; }
+.spec-item .lbl{ font-size:13px; color:var(--ink-dim); margin-top:5px; line-height:1.45; }
+
+/* Cuadrícula de productos, en el inicio */
+.card-grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:16px;
+}
+.card{
+  display:flex; flex-direction:column;
+  background:var(--bg-panel); border:1px solid var(--line);
+  border-radius:var(--radius); padding:24px 22px;
+  text-decoration:none; color:inherit;
+  transition:border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+.card:hover{ border-color:var(--accent); transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+.card .ic{ font-size:28px; margin-bottom:14px; line-height:1; }
+.card h3{ font-size:20px; margin-bottom:6px; }
+.card p{ font-size:14px; color:var(--ink-dim); flex:1; }
+.card .go{
+  margin-top:16px; font-size:13.5px; font-weight:650; color:var(--accent);
+  display:inline-flex; align-items:center; gap:6px;
+}
+.card:hover .go{ gap:10px; }
+.card .go span{ transition:margin 0.16s ease; }
+
+/* Lista de características */
+.feature-list{
+  border:1px solid var(--line); border-radius:var(--radius);
+  overflow:hidden; background:var(--bg-panel);
+}
+.feature-row{
+  display:flex; gap:16px; padding:20px 22px;
+  border-top:1px solid var(--line); align-items:flex-start;
+}
+.feature-row:first-child{ border-top:none; }
+.feature-row .ic{ font-size:22px; flex-shrink:0; width:32px; text-align:center; line-height:1.4; }
+.feature-row h4{ font-size:16px; font-weight:650; margin-bottom:4px; }
+.feature-row p{ font-size:14.5px; color:var(--ink-dim); }
+
+/* ==========================================================================
+   7. CARRUSEL
+   ========================================================================== */
+
+.carousel{
+  position:relative; max-width:420px; margin:0 auto;
+  background:var(--bg-panel); border:1px solid var(--line);
+  border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
+}
+.carousel-viewport{
+  position:relative; aspect-ratio:3/4;
+  overflow:hidden; background:var(--bg-sunken);
+  touch-action:pan-y;
+}
+.carousel-track{
+  display:flex; height:100%;
+  transition:transform 0.42s cubic-bezier(.65,0,.35,1);
+}
+.carousel-track.dragging{ transition:none; }
+.carousel-slide{ min-width:100%; height:100%; position:relative; overflow:hidden; }
+
+/* La copia difuminada rellena el espacio cuando la foto no es exactamente 3:4,
+   así no quedan barras vacías con fotos de distinta proporción. */
+.carousel-slide img.fill{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; filter:blur(26px) saturate(1.3); transform:scale(1.2);
+  opacity:0.55;
+}
+.carousel-slide img.photo{
+  position:relative; z-index:1; width:100%; height:100%; object-fit:contain;
+}
+
+.carousel-nav{
+  position:absolute; top:50%; transform:translateY(-50%); z-index:5;
+  width:40px; height:40px; border-radius:50%;
+  background:rgba(255,255,255,0.94); border:1px solid var(--line-strong);
+  color:var(--ink); font-size:20px; line-height:1; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:var(--shadow);
+  transition:background 0.15s ease, transform 0.15s ease;
+}
+.carousel-nav:hover{ background:#fff; transform:translateY(-50%) scale(1.06); }
+.carousel-nav.prev{ left:12px; }
+.carousel-nav.next{ right:12px; }
+
+.carousel-dots{
+  display:flex; justify-content:center; flex-wrap:wrap;
+  gap:2px; padding:10px;
+}
+/* El botón mide 30px para que sea fácil de tocar; el punto visible mide 8px. */
+.carousel-dot{
+  width:30px; height:30px; padding:0; border:none; background:none;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.carousel-dot::before{
+  content:''; width:8px; height:8px; border-radius:50%;
+  background:var(--line-strong);
+  transition:background 0.15s ease, transform 0.15s ease;
+}
+.carousel-dot[aria-current="true"]::before{ background:var(--accent); transform:scale(1.35); }
+.carousel-dot:hover::before{ background:var(--ink-faint); }
+
+.carousel-empty{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:12px; height:100%; padding:36px; text-align:center; color:var(--ink-faint);
+}
+.carousel-empty b{ font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:0.08em; }
+.carousel-empty p{ font-size:13px; max-width:34ch; }
+
+/* ==========================================================================
+   8. PROCESO
+   ========================================================================== */
+
+.process-grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:16px;
+}
+.process-step{
+  background:var(--bg-panel); border:1px solid var(--line);
+  border-radius:var(--radius); padding:26px 24px;
+}
+.process-step .num{
+  font-family:'JetBrains Mono', monospace; font-size:13px; font-weight:700;
+  color:var(--accent-ink); background:var(--accent);
+  width:32px; height:32px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:14px;
+}
+.process-step h3{ font-size:19px; margin-bottom:8px; }
+.process-step p{ font-size:14.5px; color:var(--ink-dim); }
+.process-step .highlight{ color:var(--accent); font-weight:650; }
+
+/* ==========================================================================
+   9. PAQUETES Y PRECIOS
+   ========================================================================== */
+
+.pkg-grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(290px, 1fr));
+  gap:20px; align-items:start;
+}
+.pkg-grid.single{ max-width:440px; margin:0 auto; grid-template-columns:1fr; }
+
+.pkg{
+  display:flex; flex-direction:column;
+  background:var(--bg-panel); border:1px solid var(--line);
+  border-radius:var(--radius); overflow:hidden;
+  transition:border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+.pkg:hover{ transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+.pkg.featured{ border-color:var(--accent); border-width:2px; position:relative; }
+.pkg.featured .badge{
+  position:absolute; top:0; right:0;
+  font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700;
+  letter-spacing:0.06em;
+  background:var(--accent); color:var(--accent-ink);
+  padding:5px 11px; border-bottom-left-radius:var(--radius);
+}
+
+.pkg-head{ padding:26px 24px 20px; border-bottom:1px solid var(--line); }
+.pkg-tag{
+  font-family:'JetBrains Mono', monospace; font-size:11.5px; font-weight:600;
+  letter-spacing:0.07em; text-transform:uppercase; color:var(--ink-faint);
+}
+.pkg-head h3{ font-size:24px; margin-top:7px; }
+.pkg-head .desc{ font-size:14px; color:var(--ink-dim); margin-top:8px; }
+
+.pkg-body{ padding:22px 24px; flex:1; display:flex; flex-direction:column; }
+.price-display{ display:flex; align-items:baseline; gap:6px; }
+.price-display .amt{
+  font-family:'JetBrains Mono', monospace; font-size:34px; font-weight:700;
+  letter-spacing:-0.02em;
+}
+.pkg.featured .price-display .amt{ color:var(--accent); }
+.price-display .cur{ font-family:'JetBrains Mono', monospace; font-size:14px; color:var(--ink-faint); }
+.price-note{ font-size:12.5px; color:var(--ink-faint); margin-top:2px; margin-bottom:18px; }
+
+.pkg-list{ list-style:none; flex:1; }
+.pkg-list li{
+  display:flex; gap:10px; padding:7px 0;
+  font-size:14px; color:var(--ink-dim); line-height:1.55;
+}
+.pkg-list li::before{ content:'✓'; color:var(--accent); font-weight:700; flex-shrink:0; }
+
+.pkg-btn{
+  display:block; margin:0 24px 24px; padding:13px;
+  text-align:center; text-decoration:none;
+  font-size:14.5px; font-weight:600;
+  border-radius:100px; border:1.5px solid var(--line-strong); color:var(--ink);
+  transition:background 0.15s ease, border-color 0.15s ease;
+}
+.pkg-btn:hover{ background:var(--bg-soft); border-color:var(--accent); }
+.pkg.featured .pkg-btn{ background:var(--accent); border-color:var(--accent); color:var(--accent-ink); }
+.pkg.featured .pkg-btn:hover{ filter:brightness(1.08); }
+
+/* ==========================================================================
+   10. BLOQUE DE DISEÑO
+   ========================================================================== */
+
+.panel{
+  background:var(--bg-panel); border:1px solid var(--line);
+  border-left:4px solid var(--accent);
+  border-radius:var(--radius);
+  padding:clamp(24px, 3.5vw, 34px);
+}
+.panel .promo-tag{
+  display:inline-block; margin-bottom:16px;
+  font-family:'JetBrains Mono', monospace; font-size:11.5px; font-weight:700;
+  letter-spacing:0.05em;
+  background:var(--accent); color:var(--accent-ink);
+  padding:6px 13px; border-radius:100px;
+}
+.panel .lead{ font-size:16px; color:var(--ink-dim); line-height:1.75; max-width:74ch; }
+
+.check-list{ list-style:none; margin-top:20px; }
+.check-list li{
+  display:flex; gap:12px; padding:13px 0;
+  border-top:1px solid var(--line);
+  font-size:15px; line-height:1.6;
+}
+.check-list li:first-child{ border-top:none; }
+.check-list .chk{ color:var(--accent); font-weight:700; flex-shrink:0; }
+.check-list a{ color:var(--accent); font-weight:600; }
+
+/* ==========================================================================
+   11. TARJETAS DE INFORMACIÓN
+   ========================================================================== */
+
+.info-grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:16px;
+}
+.info-card{
+  background:var(--bg-panel); border:1px solid var(--line);
+  border-radius:var(--radius); padding:24px 22px;
+}
+.info-card .ic{ font-size:24px; display:block; margin-bottom:12px; line-height:1; }
+.info-card h3{ font-size:17px; margin-bottom:7px; }
+.info-card p{ font-size:14px; color:var(--ink-dim); }
+
+/* ==========================================================================
+   12. PREGUNTAS FRECUENTES
+   ========================================================================== */
+
+.faq{
+  border:1px solid var(--line); border-radius:var(--radius);
+  overflow:hidden; background:var(--bg-panel);
+}
+.faq-item{ border-top:1px solid var(--line); }
+.faq-item:first-child{ border-top:none; }
+.faq-item summary{
+  cursor:pointer; list-style:none;
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+  padding:19px 22px;
+  font-size:16px; font-weight:600; line-height:1.45;
+  transition:background 0.13s ease;
+}
+.faq-item summary:hover{ background:var(--bg-soft); }
+.faq-item summary::-webkit-details-marker{ display:none; }
+.faq-item summary::after{
+  content:'+'; flex-shrink:0;
+  font-family:'JetBrains Mono', monospace; font-size:22px; font-weight:400;
+  color:var(--accent); line-height:1;
+  transition:transform 0.2s ease;
+}
+.faq-item[open] summary::after{ transform:rotate(45deg); }
+.faq-item .answer{
+  padding:0 22px 20px;
+  font-size:15px; color:var(--ink-dim); line-height:1.7; max-width:74ch;
+}
+
+/* ==========================================================================
+   13. LLAMADO FINAL, PIE Y BOTÓN FLOTANTE
+   ========================================================================== */
+
+.final-cta{
+  text-align:center;
+  padding:clamp(56px, 8vw, 92px) 0;
+  background:
+    radial-gradient(ellipse 60% 100% at 50% 100%, var(--accent-soft), transparent 65%),
+    var(--bg-soft);
+  border-top:1px solid var(--line);
+}
+.final-cta h2{ font-size:clamp(26px, 4.2vw, 42px); max-width:22ch; margin:0 auto 14px; letter-spacing:-0.02em; }
+.final-cta p{ color:var(--ink-dim); font-size:16.5px; margin:0 auto 28px; max-width:52ch; }
+.final-ctas{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+.site-footer{
+  background:var(--bg); border-top:1px solid var(--line);
+  padding:36px 0 30px;
+}
+.footer-inner{
+  display:flex; justify-content:space-between; align-items:flex-start;
+  gap:26px; flex-wrap:wrap;
+}
+.footer-col h4{
+  font-family:'JetBrains Mono', monospace; font-size:11.5px; font-weight:600;
+  letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint);
+  margin-bottom:12px;
+}
+.footer-col ul{ list-style:none; display:flex; flex-direction:column; gap:9px; }
+.footer-col a{ font-size:14px; color:var(--ink-dim); text-decoration:none; }
+.footer-col a:hover{ color:var(--accent); text-decoration:underline; }
+.footer-brand .brand{ margin-bottom:12px; font-size:18px; }
+.footer-brand p{ font-size:13.5px; color:var(--ink-dim); max-width:34ch; }
+.footer-bottom{
+  margin-top:30px; padding-top:20px; border-top:1px solid var(--line);
+  font-size:12.5px; color:var(--ink-faint);
+  display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+}
+
+.wa-float{
+  position:fixed; right:18px; bottom:18px; z-index:80;
+  width:56px; height:56px; border-radius:50%;
+  background:var(--wa-float); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  text-decoration:none;
+  box-shadow:0 6px 22px rgba(29,168,81,0.42);
+  transition:transform 0.16s ease;
+}
+.wa-float:hover{ transform:scale(1.07); }
+.wa-float svg{ width:30px; height:30px; fill:currentColor; }
+
+/* ==========================================================================
+   14. PÁGINA 404
+   ========================================================================== */
+
+.err{
+  min-height:calc(100vh - var(--nav-h));
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:56px 24px;
+}
+.err .code{
+  font-family:'Rajdhani', sans-serif; font-weight:700;
+  font-size:clamp(70px, 16vw, 130px); line-height:1;
+  color:var(--accent); letter-spacing:-0.03em;
+}
+.err h1{ font-size:clamp(24px, 4.5vw, 36px); margin:14px 0 12px; }
+.err p{ color:var(--ink-dim); max-width:46ch; margin-bottom:30px; }
+.err .links{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+
+/* ==========================================================================
+   15. RESPONSIVO
+   ========================================================================== */
+
+/* --- Tablet y móvil: el menú se vuelve desplegable de pantalla completa --- */
+@media (max-width:900px){
+  .nav-toggle{ display:flex; }
+
+  .nav-menu{
+    position:fixed; top:var(--nav-h); left:0; right:0; z-index:95;
+    flex-direction:column; align-items:stretch; gap:0;
+    background:var(--bg-panel);
+    border-bottom:1px solid var(--line);
+    box-shadow:var(--shadow-lg);
+    padding:8px 16px 20px;
+    max-height:calc(100dvh - var(--nav-h));
+    overflow-y:auto;
+    /* Cerrado por defecto: se desliza hacia arriba y no recibe clics */
+    transform:translateY(-12px); opacity:0; visibility:hidden; pointer-events:none;
+    transition:transform 0.22s ease, opacity 0.22s ease, visibility 0.22s;
+  }
+  .nav-menu.open{
+    transform:translateY(0); opacity:1; visibility:visible; pointer-events:auto;
+  }
+
+  .nav-link{
+    width:100%; justify-content:space-between;
+    padding:15px 12px; font-size:16px; font-weight:600; color:var(--ink);
+    border-radius:var(--radius-sm);
+  }
+  .nav-menu > li + li{ border-top:1px solid var(--line); }
+
+  /* El submenú de equipos se abre como acordeón, empujando el contenido */
+  .dropdown{
+    position:static; opacity:1; visibility:visible; transform:none;
+    min-width:0; border:none; box-shadow:none; background:none;
+    padding:0 0 8px; margin:0;
+    display:none;
+  }
+  .dropdown.open{ display:block; }
+  .dropdown a{ padding:12px; }
+  .dropdown a:hover{ background:var(--bg-soft); }
+
+  .nav-cta{ display:none; }               /* ya está el botón flotante */
+  .nav-menu .nav-cta-mobile{
+    display:flex; justify-content:center;
+    margin-top:14px; padding:14px;
+    background:var(--wa); color:#fff; border-radius:100px;
+    font-weight:600; text-decoration:none;
+  }
+}
+
+/* En escritorio no se muestra el WhatsApp de dentro del menú */
+@media (min-width:901px){
+  .nav-menu .nav-cta-mobile{ display:none; }
+  .nav-menu li.only-mobile{ display:none; }
+}
+
+@media (max-width:640px){
+  .wrap{ padding:0 18px; }
+  .brand{ font-size:17px; }
+  .hero-badges{ grid-template-columns:1fr; }
+  .hero-ctas{ flex-direction:column; align-items:stretch; }
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-ghost{ width:100%; }
+  .final-ctas{ flex-direction:column; align-items:stretch; }
+  .final-ctas .btn-primary,
+  .final-ctas .btn-ghost{ width:100%; }
+  .specs-grid{ grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:10px; }
+  .spec-item{ padding:18px 16px; }
+  .feature-row{ padding:17px 16px; gap:12px; }
+  .faq-item summary{ padding:16px; font-size:15px; }
+  .faq-item .answer{ padding:0 16px 17px; }
+  .footer-inner{ flex-direction:column; gap:24px; }
+  .carousel{ max-width:100%; }
+  .wa-float{ width:52px; height:52px; right:14px; bottom:14px; }
+  .wa-float svg{ width:27px; height:27px; }
+}
+
+/* --- Respetar a quien prefiere menos movimiento --- */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *, *::before, *::after{
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+  }
+}
+
+/* --- Impresión --- */
+@media print{
+  .site-header, .wa-float, .nav-scrim, .carousel-nav, .carousel-dots{ display:none !important; }
+  body{ color:#000; }
+  .section, .hero{ padding:18px 0; }
+}
+
+/* ==========================================================================
+   16. BLOQUES AÑADIDOS — tabla comparativa, botón de PDF, utilidades
+   ========================================================================== */
+
+/* --- Utilidades --- */
+.sr{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+.spacer{ height:16px; }
+.center-link{ margin-top:26px; text-align:center; }
+.center-link a{ color:var(--accent); font-weight:600; font-size:15px; }
+
+/* Elemento actual del menú cuando estás dentro de un producto */
+.nav-link--on{ color:var(--accent) !important; font-weight:650; }
+
+.dropdown-foot{ border-top:1px solid var(--line); margin-top:6px; padding-top:6px; }
+.card-serv{ border-style:dashed; }
+
+.note-panel{ margin-top:20px; }
+.note-panel .btn-ghost{ margin-top:16px; }
+
+/* --- Tabla comparativa --- */
+.table-scroll{
+  overflow-x:auto;
+  border:1px solid var(--line); border-radius:var(--radius);
+  background:var(--bg-panel);
+  -webkit-overflow-scrolling:touch;
+}
+.table-scroll:focus-visible{ outline:3px solid var(--accent); outline-offset:2px; }
+
+.compare{
+  width:100%; border-collapse:collapse;
+  font-size:14px; min-width:760px;
+}
+.compare th, .compare td{
+  padding:13px 14px; text-align:left; vertical-align:top;
+  border-bottom:1px solid var(--line);
+}
+.compare thead th{
+  background:var(--bg-soft);
+  border-bottom:2px solid var(--line-strong);
+  position:sticky; top:0; z-index:2;
+}
+.compare thead th a{
+  display:flex; flex-direction:column; gap:5px;
+  text-decoration:none; color:var(--ink);
+  font-family:'Rajdhani', sans-serif; font-weight:700; font-size:15px; line-height:1.2;
+}
+.compare thead th a::first-line{ font-size:20px; }
+.compare thead th a:hover span{ color:var(--accent); text-decoration:underline; }
+
+/* Primera columna fija al deslizar la tabla en horizontal */
+.compare tbody th{
+  position:sticky; left:0; z-index:1;
+  background:var(--bg-panel);
+  font-weight:650; font-size:13.5px; color:var(--ink);
+  border-right:1px solid var(--line);
+  min-width:132px;
+}
+.compare tbody tr:nth-child(even) th,
+.compare tbody tr:nth-child(even) td{ background:var(--bg-soft); }
+.compare td{ color:var(--ink-dim); }
+.compare .row-precio th,
+.compare .row-precio td{
+  font-weight:700; color:var(--ink); font-size:15px;
+  border-bottom:none;
+}
+.compare .row-precio td{ color:var(--accent); font-family:'JetBrains Mono', monospace; font-size:14px; }
+
+.table-hint{
+  margin-top:10px; font-size:13px; color:var(--ink-faint); text-align:center;
+}
+@media (min-width:1000px){ .table-hint{ display:none; } }
+
+/* --- Bloque de descarga de ficha en PDF --- */
+.pdf-cta{
+  display:flex; align-items:center; gap:22px; flex-wrap:wrap;
+  background:var(--bg-panel);
+  border:2px dashed var(--line-strong);
+  border-radius:var(--radius);
+  padding:clamp(22px, 3.5vw, 32px);
+}
+.pdf-icon{
+  font-size:38px; line-height:1; flex-shrink:0;
+  width:64px; height:64px; border-radius:var(--radius);
+  background:var(--accent-soft);
+  display:flex; align-items:center; justify-content:center;
+}
+.pdf-txt{ flex:1 1 280px; }
+.pdf-txt h2{ font-size:clamp(21px, 2.8vw, 27px); margin-bottom:7px; }
+.pdf-txt p{ color:var(--ink-dim); font-size:15px; max-width:56ch; }
+.pdf-btns{ display:flex; flex-direction:column; gap:10px; flex-shrink:0; }
+.pdf-btn{
+  justify-content:flex-start; gap:12px;
+  padding:12px 22px; text-align:left; min-width:250px;
+}
+.pdf-btn .bt{ display:flex; flex-direction:column; line-height:1.3; }
+.pdf-btn .bt b{ font-size:14.5px; font-weight:650; }
+.pdf-btn .bt em{ font-style:normal; font-size:12px; font-weight:400; opacity:.82; }
+
+.spinner{
+  display:inline-block; width:14px; height:14px;
+  border:2px solid rgba(255,255,255,0.4);
+  border-top-color:#fff; border-radius:50%;
+  animation:spin 0.7s linear infinite;
+  vertical-align:-2px;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+@media (max-width:640px){
+  .pdf-cta{ gap:16px; }
+  .pdf-icon{ width:52px; height:52px; font-size:30px; }
+  .pdf-btns{ width:100%; }
+  .pdf-btn{ width:100%; min-width:0; }
+  .compare{ min-width:680px; font-size:13px; }
+  .compare th, .compare td{ padding:11px 10px; }
+  .compare tbody th{ min-width:112px; }
+}
+
+/* ==========================================================================
+   17. FONDO CON TEXTURA
+   Cuadrícula muy tenue en toda la página, que se desvanece hacia abajo.
+   Va detrás de todo y no recibe clics.
+   ========================================================================== */
+
+/* La textura va detrás de todo con z-index negativo. Es importante que sea así
+   y no al revés: si en vez de esto se le pone position:relative al contenido,
+   se rompen la barra pegajosa de arriba y el botón flotante de WhatsApp. */
+body::before{
+  content:''; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(28,22,38,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28,22,38,.045) 1px, transparent 1px);
+  background-size:34px 34px;
+  -webkit-mask-image:radial-gradient(ellipse 85% 55% at 50% 0%, #000 22%, transparent 82%);
+  mask-image:radial-gradient(ellipse 85% 55% at 50% 0%, #000 22%, transparent 82%);
+}
+
+/* Las secciones con texto denso tapan la textura, para no cansar la vista */
+.section.alt{ background:var(--bg-soft); }
+.section.plain{ background:var(--bg); }
+
+/* Separadores: los sprites de 8 bits viven solo aquí */
+.divider{ gap:18px; font-size:17px; opacity:.55; }
+
+/* ==========================================================================
+   18. SECCIÓN "CÓMO ES ESTE EQUIPO"
+   ========================================================================== */
+
+/* Línea de contexto que abre la sección */
+.intro-line{
+  font-size:clamp(16px, 1.9vw, 18px);
+  color:var(--ink-dim); line-height:1.7; max-width:62ch;
+  padding-left:16px; border-left:3px solid var(--accent);
+}
+
+/* Los puntos, numerados */
+.steps{
+  margin-top:26px;
+  border:1px solid var(--line); border-radius:var(--radius);
+  overflow:hidden; background:var(--bg-panel);
+}
+.step{
+  display:flex; gap:15px; padding:19px 20px;
+  border-top:1px solid var(--line); align-items:flex-start;
+}
+.step:first-child{ border-top:none; }
+.step .n{
+  flex:none; width:28px; height:28px; border-radius:50%;
+  background:var(--accent-soft); color:var(--accent);
+  font-family:'JetBrains Mono', monospace; font-size:13px; font-weight:700;
+  display:flex; align-items:center; justify-content:center; margin-top:1px;
+}
+.step h3{ font-size:17px; font-weight:700; margin-bottom:4px; }
+.step p{ font-size:14.5px; color:var(--ink-dim); line-height:1.6; }
+
+/* Ficha técnica: los números, juntos y hasta el final */
+.spec-title{
+  margin-top:34px; margin-bottom:12px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px; font-weight:600; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--ink-faint);
+}
+.spec-table{
+  border:1px solid var(--line); border-radius:var(--radius);
+  overflow:hidden; background:var(--bg-panel);
+}
+.spec-row{
+  display:grid; grid-template-columns:180px 1fr;
+  border-top:1px solid var(--line); font-size:14.5px;
+}
+.spec-row:first-child{ border-top:none; }
+.spec-row dt{
+  padding:13px 16px; background:#faf9fc; font-weight:650;
+  border-right:1px solid var(--line);
+}
+.spec-row dd{ padding:13px 16px; margin:0; color:var(--ink-dim); }
+
+/* Referencia de tamaño, a escala real */
+.size-ref{
+  margin-top:16px;
+  border:1px dashed var(--line-strong); border-radius:var(--radius);
+  padding:22px 20px; background:var(--bg-panel);
+  display:flex; align-items:center; gap:26px; flex-wrap:wrap;
+}
+.size-ref svg{ flex:none; width:250px; height:auto; }
+.size-ref .tx{ flex:1 1 260px; font-size:15px; color:var(--ink-dim); line-height:1.65; }
+.size-ref .tx strong{ color:var(--ink); }
+
+/* ==========================================================================
+   19. MENÚ AGRUPADO Y EMOJIS
+   ========================================================================== */
+
+/* Encabezado de grupo dentro del desplegable: Pedestales / Gabinetes */
+.dropdown-group{
+  padding:11px 12px 5px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:10.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--ink-faint);
+}
+.dropdown-group + li a{ border-top:none; }
+.dropdown-group span{
+  display:block; text-transform:none; letter-spacing:0; font-weight:400;
+  font-family:'Inter', sans-serif; font-size:11.5px; margin-top:2px; opacity:.85;
+}
+.dropdown li:not(:first-child) .dropdown-group{
+  border-top:1px solid var(--line); margin-top:6px; padding-top:12px;
+}
+
+/* Emoji como icono dentro de un enlace del menú o del pie */
+.emj{ font-style:normal; margin-right:7px; font-size:1.02em; line-height:1; }
+.nav-link .emj{ margin-right:6px; }
+
+/* ==========================================================================
+   20. PIE DE PÁGINA — arreglo de color
+   El renglón de la ubicación no es un enlace, y sin esto salía más oscuro
+   que los demás y parecía una liga rota.
+   ========================================================================== */
+
+.footer-col ul li{ font-size:14px; color:var(--ink-dim); line-height:1.5; }
+.footer-col ul li a{ color:var(--ink-dim); }
+
+/* ==========================================================================
+   21. BLOQUE "PEDESTAL O GABINETE"
+   ========================================================================== */
+
+.tipos{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+  gap:16px; margin-bottom:26px;
+}
+.tipo{
+  background:var(--bg-panel); border:1px solid var(--line);
+  border-radius:var(--radius); padding:22px 20px;
+}
+.tipo .ic{ font-size:26px; display:block; margin-bottom:10px; line-height:1; }
+.tipo h3{ font-size:18px; margin-bottom:6px; }
+.tipo p{ font-size:14.5px; color:var(--ink-dim); line-height:1.6; }
+.tipo .cuales{
+  margin-top:12px; padding-top:12px; border-top:1px solid var(--line);
+  font-size:13px; color:var(--ink-faint);
+}
+
+@media (max-width:640px){
+  .spec-row{ grid-template-columns:1fr; }
+  .spec-row dt{ border-right:none; padding-bottom:4px; }
+  .spec-row dd{ padding-top:6px; }
+  .size-ref{ gap:16px; padding:18px 16px; }
+  .size-ref svg{ width:200px; }
+  .step{ padding:17px 15px; gap:12px; }
+  .intro-line{ padding-left:13px; }
+}
